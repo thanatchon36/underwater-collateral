@@ -14,7 +14,7 @@
 - Working paper: `paper/paper.pdf`, built by `paper/build.sh`; every number is a macro written by `04_analysis/src/paper_numbers.py`. Revised after a referee-style review (`07_review/referee_report_paper_round1.md`; changes in `07_review/revision_log.md`).
 - Web version of the paper: https://thanatchon36.github.io/underwater-collateral/paper/ (built by `paper/web.py` from the same LaTeX sources, served from `docs/` by GitHub Pages).
 - Monte Carlo of the registered RQ1 estimator: the wild cluster bootstrap holds its size; the placebo-footprint test over-rejects (0.195), restricting the placebo pool does not repair it, studentising does (0.055). Amendment proposed in PAP §6 and paper Section 6.5.
-- Repository public (2026-11-04); Zenodo concept DOI 10.5281/zenodo.23949061 (latest release v0.1.1, 10.5281/zenodo.23951602, clean metadata); processed data on Hugging Face (`thanatchon36/underwater-collateral-data`, tier 1).
+- Repository public (2026-11-04); Zenodo concept DOI 10.5281/zenodo.23949061 (latest release v0.2.0, 10.5281/zenodo.23953576); processed data on Hugging Face (`thanatchon36/underwater-collateral-data`, tier 1).
 
 ## Decisions only the author can take
 

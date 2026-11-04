@@ -30,8 +30,8 @@ paper/paper.out
 paper/paper.xdv
 paper/render/
 
-# private application material: kept locally, never published
+# local working notes: not published
 _private/
 
-# local working instructions for the assistant: kept locally, not published
+# local working instructions: not published
 CLAUDE.md
