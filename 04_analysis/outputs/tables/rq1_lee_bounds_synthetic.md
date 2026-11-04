@@ -1,0 +1,7 @@
+<!-- Synthetic check of the Lee bounds code: one synthetic R1 per row (rq1_round_change.synthetic_post; planted effect on changed units, 30% of units carried over). Not results, 2024 sample: change in log value among units whose value moved, Lee (2009) bounds within province, cluster-bootstrap interval (999 draws). Author's calculations. -->
+
+|   sample |   planted_effect |   carry_treated |   naive |   lower |   upper |   trim_share |   moved_treated |   moved_control |   ci_low |   ci_high |   boot_draws_failed | provinces_skipped   |   units_moved |   units_present |
+|---------:|-----------------:|----------------:|--------:|--------:|--------:|-------------:|----------------:|----------------:|---------:|----------:|--------------------:|:--------------------|--------------:|----------------:|
+|     2024 |            -0.05 |             0.3 | -0.0568 | -0.0773 | -0.0356 |       0.0952 |          0.6974 |          0.6778 |  -0.1062 |   -0.0013 |                   0 |                     |          9857 |           14032 |
+|     2024 |            -0.05 |             0.2 | -0.0521 | -0.0828 | -0.0256 |       0.1402 |          0.7963 |          0.7068 |  -0.1148 |    0.0161 |                   0 |                     |          9929 |           14009 |
+|     2024 |             0    |             0.3 | -0.0197 | -0.0275 | -0.0124 |       0.0333 |          0.7111 |          0.7324 |  -0.0572 |    0.0302 |                   0 |                     |          9906 |           14023 |

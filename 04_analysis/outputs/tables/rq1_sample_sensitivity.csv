@@ -1,0 +1,5 @@
+sample,provinces,province_counts,treated,controls,clusters,mixed_clusters,mde_sd0.10,mde_sd0.20,mde_carryover_pp
+"2024 event, provinces with >= 20 treated",5,chiang-rai 88; nong-khai 60; nakhon-phanom 25; phayao 25; nakhon-si-thammarat 23,221,4372,84,23,0.04422724579316724,0.08845449158633448,22.11362289658362
+"2024 event, provinces with >= 25 treated",4,chiang-rai 88; nong-khai 60; nakhon-phanom 25; phayao 25,198,2373,57,20,0.046513137460629364,0.09302627492125873,23.25656873031468
+"2024 event, provinces with >= 30 treated",2,chiang-rai 88; nong-khai 60,148,883,34,12,0.060350132405565374,0.12070026481113075,30.175066202782684
+"2025 event (dry in 2024), provinces with >= 25 treated",9,songkhla 113; phitsanulok 62; phichit 61; phetchabun 41; pattani 40; nakhon-phanom 34; nakhon-sawan 33; phatthalung 27; nakhon-si-thammarat 26,437,7664,134,47,0.029181623999327524,0.05836324799865505,14.590811999663762

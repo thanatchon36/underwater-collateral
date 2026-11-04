@@ -1,0 +1,41 @@
+\section{Data}\label{sec:data}
+
+Every dataset is public. Table~\ref{tab:data} lists them; access dates, licences and the download and cleaning scripts are in the replication repository.
+
+\begin{table}[t]
+\centering\footnotesize
+\caption{Data sources}\label{tab:data}
+\begin{tabular}{p{3.4cm}p{5.2cm}p{6.2cm}}
+\toprule
+Dataset & Publisher and content & Use \\
+\midrule
+Official land values, round 2023--26 & Treasury Department open data; one row per titled parcel with cadastral sheet reference, land-unit code and value per \wah\ \citep{treasury2026opendata} & Outcome for Question~1; parcels aggregated to cadastral sheets \\
+Global Flood Database, event DFO~3850 & Cloud to Street and Dartmouth Flood Observatory, MODIS 250~m, 5 August 2011 to 9 January 2012 \citep{tellman2021satellite,cloudtostreet2021global} & 2011 flood share by sheet (Section~\ref{sec:cross}) \\
+Global Surface Water, occurrence & EC JRC and Google, Landsat 30~m, 1984--2021 \citep{pekel2016high,jrc2022monthly} & Permanent water, distance to water, masking \\
+Sentinel-1 GRD & Copernicus, C-band radar, 10~m \citep{copernicus2014sentinel} & 2024 and 2025 flood maps by sheet; treatment for Question~1 \\
+Sentinel-2 L2A & Copernicus optical, 10~m & Validation of radar maps (Section~\ref{sec:validation}) \\
+UNOSAT flood extents, 2024 & UN Satellite Centre, event-specific analyses & Independent treatment definition; second sample \\
+Copernicus DEM GLO-30 and GLO-90 & ESA and Airbus \citep{esa2022copdem}; FABDEM \citep{hawker2022fabdem} for checks & Elevation and height above valley floor \\
+ESA WorldCover 2021 & 10~m land cover \citep{zanaga2022worldcover} & Built-up, cropland, tree and water shares by sheet \\
+Commercial-bank loans by province & Bank of Thailand statistics, monthly from July 2005 (2012 missing) \citep{bot2026loansprovince} & Descriptive credit evidence; portfolio weights for Question~3 \\
+Residential property price index by region & Bank of Thailand, appraisal-based \citep{bot2025rppi,bot2026rppislides} & Descriptive price windows around floods \\
+Loan-level panel with collateral location & Restricted; schema and synthetic panel only & Question~2 estimator and power; Question~3 inversion \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{From parcels to cadastral sheets}
+
+The Treasury schedule gives, for each parcel, a value per square wah and a cadastral sheet reference (a UTM map series, sheet number and scale) but no coordinates. Parcel geometry is not public. The sheet reference can, however, be decoded into a rectangle: the national cadastral grid nests sheets at scales 1:4,000 (2~km squares, used in rural areas), 1:2,000, 1:1,000 (500~m squares, urban) and 1:500 inside 1:50,000 blocks. I decode every reference and locate each parcel to its sheet rectangle. Across \covProvinces{} provinces the schedule contains \covParcels{} parcels on \covSheetRefs{} distinct sheet references; \covLocated\% of parcels are located, \covGfd\% fall inside the Global Flood Database footprint for 2011, and \covGsw\% have Global Surface Water coverage.
+
+The unit of analysis throughout is therefore the cadastral sheet, not the parcel. Three consequences follow. First, treatment is measured as the share of a sheet's land pixels flooded, so a sheet is a continuous rather than a binary exposure. Second, values within a sheet are coarse: the committees assign one value per land unit, and a 1:1,000 sheet with a median of \discParcelsOneK{} parcels has a median of only \discDistinctOneK{} distinct values, a 1:4,000 sheet with \discParcelsFourK{} parcels a median of \discDistinctFourK{} (Appendix Table~\ref{tab:discreteness}). The sheet mean of log value is the outcome, and the parcel count is not a sample size. Third, at 1:1,000 a sheet is only a few MODIS pixels: \supZeroOneK\% of urban sheets in the 2011 pilot have a flood share of exactly zero, \supOneOneK\% are entirely flooded and only \supInteriorOneK\% take interior values, with a median of \supPxOneK{} land pixels per sheet; rural sheets have a median of \supPxFourK{} pixels and \supInteriorFourK\% interior values. The urban measure is close to binary and the rural measure is continuous.
+
+\subsection{Flood maps}
+
+For 2011 the only satellite record at scale is the Global Flood Database, built from MODIS optical imagery at 250~m, which the authors validate at about 83\% accuracy against Landsat and which is known to miss flooding under cloud, in dense vegetation and in built-up areas \citep{tellman2021satellite}. The near-absence of detected flooding in Bangkok, where the 2011 flood is well documented, is the urban under-detection at work, not an absence of flooding; the 2011 flood share of Bangkok's parcels in the database is \provBangkok\% against \provAyutthaya\% in Ayutthaya (Appendix Table~\ref{tab:province2011}). I treat the 2011 share as a descriptive exposure measure and do not use it for identification.
+
+For 2024 and 2025 I build sheet-level flood maps from Sentinel-1 radar, which sees through cloud, with a rule fixed before any outcome was examined. Each VV scene is calibrated to $\sigma^0$ on a 0.001$^\circ$ grid (about 110~m), and a pixel is water if $\sigma^0 < -18$~dB. A pixel is flooded in an event season (15 August to 31 October 2024 for the northern floods; 15 November to 31 December 2025 for the floods in the south) if it is water in at least one scene of that season, water in no scene of the same calendar window in 2023, and observed in at least two 2023 scenes; the reference rule removes permanent water, radar shadow and paddy that floods every year. The sheet's flood share is the flooded fraction of its valid pixels. Radar is insensitive to flooding under vegetation and in built-up areas, where double-bounce scattering hides water; the Copernicus Global Flood Monitoring product excludes such areas and states that this leads more often to under-estimation \citep{gfm2025product}. Section~\ref{sec:validation} quantifies the resulting errors with optical imagery and with UNOSAT's independent extents.
+
+\subsection{Credit and price aggregates}
+
+The Bank of Thailand publishes monthly loans and deposits of commercial banks by province; the files located run from July 2005, with 2012 missing \citep{bot2026loansprovince}. These give the descriptive evidence of Section~\ref{sec:credit} and the portfolio weights for the illustrative stress test; Bangkok alone accounts for \bkkShare\% of commercial-bank loans at December 2025, and loans are recorded by booking province, so corporate loans sit at head offices rather than at their collateral. The appraisal-based residential property price index by region is used only to show the price path around the three floods; it is a regional index built from lenders' appraisal data in the mortgage-collateral database and is not a measure of official values \citep{bot2025rppi,bot2026rppislides}.

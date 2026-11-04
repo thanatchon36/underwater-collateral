@@ -1,0 +1,4 @@
+region,event,base_month,pre_12m_rel_pct,post_3m_rel_pct,post_6m_rel_pct,post_10m_rel_pct
+Bangkok and vicinity,"Chao Phraya floods reach Bangkok's vicinity, Oct-Nov 2011",2011-09,,-2.1970001259542737,-3.446230543681028,-7.294860841654649
+North,"Northern floods incl. Chiang Rai, Aug-Oct 2024",2024-07,0.5692087659278755,-1.2208788537108124,-0.4696018287044506,-1.1063286413404447
+South,"Southern floods incl. Hat Yai (Songkhla), from mid-Nov 2025",2025-10,3.3283339936833594,3.1411590487177974,2.208112164797408,3.1728770594382283

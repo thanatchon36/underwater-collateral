@@ -1,0 +1,159 @@
+\section{Additional tables and figures}\label{app:tables}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{fig_basin_maps}
+\caption{2011 flood share and official land value by cadastral sheet, Chao Phraya basin}
+\label{fig:maps}
+\tabnote{Each marker is one cadastral sheet (2~km rural, 500~m urban) at its centre. Left: share of the sheet's land pixels flooded in the Global Flood Database event of 5 August 2011 to 9 January 2012 (MODIS, 250~m). Right: mean log official value per parcel, round 2023--26. The near-absence of detected flooding in Bangkok reflects urban under-detection by optical satellites, not an absence of flooding. Sources: Treasury Department official land values, round 2023--26 (snapshot of 2 November 2026); Global Flood Database event DFO~3850 \citep{tellman2021satellite}; author's calculations.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{fig_appraisal_flood_binned}
+\caption{Official land value by 2011 flood-share bin, within province, map block and scale}
+\label{fig:binned}
+\tabnote{Coefficients $\beta_b$ from equation~\eqref{eq:cross} with 95\% intervals (clustered by 1:50,000 block), reference bin $<$1\%. Filled markers: cell effects only; open markers: adding 2021 WorldCover land-cover shares. Numbers are sheets per bin. Table~\ref{tab:binned} gives the estimates.}
+\end{figure}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Linear within-cell slopes of official value on 2011 flood share}\label{tab:within}
+\input{tables/pilotWithin}
+\tabnote{Coefficient on the 2011 flood share (0--1) in equation~\eqref{eq:cross} with the share entering linearly and no land-cover controls. Outcomes: parcel-weighted mean and 90th percentile of log official value per \wah\ on the sheet. Standard errors clustered by 1:50,000 block. Source: \texttt{appraisal\_flood\_within.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Coarseness of official values within cadastral sheets}\label{tab:discreteness}
+\input{tables/discreteness}
+\tabnote{All decoded sheets in the \covProvinces{} provinces, round 2023--26. A ``distinct value'' is a distinct value per \wah\ among the sheet's parcels. Source: \texttt{sheet\_price\_discreteness.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{2011 flood share by province, Global Flood Database}\label{tab:province2011}
+\input{tables/province2011}
+\tabnote{Ten most flooded provinces among the \provTopCount{} with at least 90\% of parcels inside the database footprint, and Bangkok. Share of parcels whose sheet was flooded, weighted by parcels. GSW occurrence: mean Global Surface Water occurrence (per cent of valid observations with water) over the province's sheets. Source: \texttt{province\_flood\_share\_2011.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{2021 land cover by 2011 flood-share bin, Chao Phraya basin pilot}\label{tab:landcover}
+\input{tables/landcoverBins}
+\tabnote{Mean WorldCover 2021 shares (per cent of 10~m pixels) over sheets in each bin. Source: \texttt{landcover\_by\_flood\_bin.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Provinces in the 2024 radar sample}\label{tab:radarprov}
+\input{tables/radarProvinces}
+\tabnote{Treated: more than 25\% flooded in the 2024 radar maps and at most 25\% in 2025. Hazard-comparable controls: less than 1\% flooded in the radar maps, within 5~km of a treated sheet, height-capped; the primary sample further requires controls to be dry in UNOSAT and optical sources. Source: \texttt{rq1\_2024\_pooled\_provinces.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Registered balance by province, 2024 radar sample}\label{tab:regbalance}
+\input{tables/registeredBalance}
+\tabnote{Entropy balancing within province. ``Full set'': log value, height above valley floor, built-up share, cropland share and rural indicator; where the full set cannot be balanced the plan drops the worst-fitting variable until every gap is at most 0.01, and the balancing set actually used is shown. Gaps are standardised differences after weighting; tree and water shares are never balanced on. Source: \texttt{rq1\_round\_change\_balance.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Ex-ante balance of the UNOSAT-defined treated sheets, 2024}\label{tab:unosatbalance}
+\input{tables/unosatBalance}
+\tabnote{Medians and standardised mean differences before weighting. ``All controls'': every unflooded sheet in the two provinces; ``comparable'': within 5~km and height-capped. Source: \texttt{rq1\_2024\_balance.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Province-threshold and second-event samples}\label{tab:thresholds}
+\input{tables/sampleThresholds}
+\tabnote{MDE at 80\% power, $\sigma = 0.10$, ICC 0.2, unweighted. The 2024 rows use radar-only hazard-comparable controls (\thrTwentyFiveControls{} sheets and a carry-over MDD of \thrTwentyFiveCarry{} points in the 25-treated row), before the requirement that controls be dry in UNOSAT and optical sources, which leaves the \radarControls{} controls and the MDD of \radarCarry{} points in Table~\ref{tab:samples}. Source: \texttt{rq1\_sample\_sensitivity.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Every registered specification on one synthetic next round, 2024 radar sample}\label{tab:synspecs}
+\input{tables/syntheticSpecs}
+\tabnote{One synthetic draw per planted effect; the expected sheet effect is 70\% of the planted value. Placebo $p$ from 1,000 shifted footprints; bootstrap $p$ from the wild cluster bootstrap. The interaction is treatment $\times$ height above valley floor; on the null draw its $t$-statistic is about 2, which Table~\ref{tab:mcextended} shows to be within the null distribution. Not results. Source: \texttt{rq1\_round\_change\_synthetic.csv}.}
+\end{table}
+
+\section{Sensitivity samples}\label{app:sens}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Registered sensitivities on one synthetic next round}\label{tab:sensitivities}
+\input{tables/sensitivities}
+\tabnote{Same synthetic draw as Table~\ref{tab:synspecs}, planted $-0.05$. Each row rebuilds the sample under the stated variant and re-runs the registered pipeline; counts are estimation counts (sheets with a computable change), which are slightly below the sample-file counts of \texttt{rq1\_sensitivity\_samples.csv}. The 2021--23 radar reference period counts a pixel as flooded only if it was water in no scene of the 2021, 2022 or 2023 windows. The declared-district and declared-tambon rows use a stand-in list (every district or sub-district holding a treated sheet) because the official declarations have not been obtained; they are identical by construction. Not results. Sources: \texttt{rq1\_round\_change\_sensitivities\_synthetic.csv}, \texttt{rq1\_sensitivity\_samples.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Lee bounds on the moved-unit change, synthetic draws}\label{tab:lee}
+\input{tables/leeBounds}
+\tabnote{Treated sheets lose a share of their land units to re-drawing (``carry-over''); the naive estimate uses the units present in both rounds, and the bounds trim the group with less attrition. Bootstrap confidence intervals. Under the planted null the point bounds exclude zero while the bootstrap interval covers it; Table~\ref{tab:mcextended} shows this is the rule rather than the exception, because the re-drawn units' change is not centred on zero in the synthetic rounds. Not results. Source: \texttt{rq1\_lee\_bounds\_synthetic.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Registered sample files}\label{tab:hashes}
+\input{tables/hashes}
+\tabnote{SHA-256 of the decompressed file, computed 2 November 2026; full hashes in \texttt{registration\_hashes.csv}. The repository holding the files is private at the time of writing; a public archive with a DOI is to accompany the registration.}
+\end{table}
+
+\section{Code tests on synthetic data}\label{app:code}
+
+The tables in this appendix show that the estimators of Sections~\ref{sec:credit} and~\ref{sec:stress} recover effects planted in a panel generated by the same model. They are tests of the code, not results.
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Recovery of planted effects on the synthetic loan panel}\label{tab:rq2synth}
+\input{tables/rqTwoSynthetic}
+\tabnote{Synthetic monthly panel of 20,000 loans over 60 months from January 2009 in 10 provinces, 50 districts and 800 cadastral sheets, generated to the requested data schema with a planted flood effect $\beta_s = 0.05$ on monthly distress, full censoring of default among eligible loans during the relief window, and 80\% of censored distress appearing as stage~2. Window effects average the quarterly coefficients of equation~\eqref{eq:es} over 2011Q4--2012Q3; standard errors clustered by district. The planted flood effect on distress is recovered as \rqTwoDistress{} (\rqTwoDistressSe); default among all loans shows almost nothing, \rqTwoDefaultAll{} (\rqTwoDefaultAllSe), because eligible loans dominate and their default is censored, while among eligible loans the effect appears in restructuring, \rqTwoRestr{} (\rqTwoRestrSe), and stage~2, \rqTwoStage{} (\rqTwoStageSe); the censoring gap between eligible and ineligible loans is \rqTwoGap{} (\rqTwoGapSe) against a planted $-0.05$. Not results. Source: \texttt{rq2\_synthetic\_recovery.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Breaking point over the recovery haircut and the damage share, $\delta = 4.6\%$}\label{tab:lambdagrid}
+\input{tables/lambdaGrid}
+\tabnote{Cells give $S^*$ under $\lambda_B = 0$ / $\lambda_B = 1$ and the relative change, on the two-region book of Table~\ref{tab:lambda} with the haircut $c$ and the damage share $\phi$ varied; ``$>$10'' means that the book does not breach the threshold within ten times the 2011 footprint, the upper limit of the bisection. The base case of Table~\ref{tab:lambda} is $c = \lamHaircutBase$, $\phi = \lamPhiBase$. Illustrative. Source: \texttt{rq3\_lambda\_grid.csv}.}
+\end{table}
+
+\section{Credit: additional tables}\label{app:credit}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Drift of the provincial distribution of commercial-bank loans}\label{tab:drift}
+\input{tables/creditDrift}
+\tabnote{Dissimilarity index: half the sum of absolute changes in provincial loan shares between the two dates. Source: \texttt{credit\_share\_drift.csv}.}
+\end{table}
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Sample sizes for an equivalence test on the 2011 event}\label{tab:rq2equiv}
+\input{tables/rqTwoPowerEquiv}
+\tabnote{Two one-sided tests at 5\% with 80\% power that the difference in a continuous distress score between flooded relief-eligible and comparison loans lies within $\pm$5 percentage points; $\sigma$ is the score's standard deviation, the first stage the share of nominally exposed loans actually flooded. Source: \texttt{rq2\_power.csv}.}
+\end{table}
+
+\section{Timing cases for the next valuation round}\label{app:timing}
+
+Let R1 be the first schedule published after the 2023--26 round and R2 the one after it. Table~\ref{tab:timing} gives the cases of the pre-analysis plan. The case is set province by province from the published survey periods; where a period is unknown when R1 appears, the surveyed-after case is assumed and the surveyed-before case is reported as a sensitivity. Holm adjustment is computed once for the R1 family, over the runs recorded by the time every sample province's R1 is published or one year has passed since the first, whichever is sooner; provinces whose primary test moves to R2 form a second family adjusted separately.
+
+\begin{table}[h]
+\centering\footnotesize
+\caption{Timing cases in the pre-analysis plan}\label{tab:timing}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{p{3.4cm}p{3.2cm}p{3.4cm}p{5.4cm}}
+\toprule
+Case & R1 & Primary test & What can be concluded \\
+\midrule
+(a) R1 on time, comparables surveyed after the floods & 2027--30, published by 2 December 2026 & R1 against 2023--26; persistence in R2 & Damage, administrative relief and recognised risk, with persistence from R2 \\
+(b) R1 on time, surveyed before the floods & 2027--30 & R2 against 2023--26; R1 is a placebo & Damage and administrative relief; recognised risk only from briefly flooded land \\
+(c) One-year extension, surveyed after the floods & 2028--31, published by early December 2027 & R1 & As (a), with persistence a year later; the 2026 floods enter the same change \\
+(b)+(c) Extension, surveyed before the floods & 2028--31 & R2 & As (b); the 2025 sample carries the chapter until then \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\tabnote{The 2025 floods follow the same tree with their own survey timing; because they came later, case (b) is the default expectation for them. Whether provinces holding treated sheets extend more often than others is recorded as a descriptive outcome. As of 4 November 2026, Treasury provincial news items record that committees in Chainat, Chachoengsao, Phatthalung and Trat had met to consider a one-year extension and that provincial offices had been briefed on one; no national decision had been published \citep{treasury2026extbriefing,treasury2026chainat,treasury2026chachoengsao,treasury2026phatthalung,treasury2026trat}.}
+\end{table}

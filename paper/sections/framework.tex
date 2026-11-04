@@ -1,0 +1,64 @@
+\section{Framework}\label{sec:framework}
+
+The framework is deliberately simple. Its purpose is to fix notation, to make explicit which parameter each question estimates, and to derive the predictions that the empirical sections test or prepare to test.
+
+\subsection{Values, loan-to-value and the two capitalisation parameters}
+
+Let parcel $i$ carry flood hazard $h_i \in [0,1]$, measured ex ante as an exceedance probability or ex post as the share of the parcel inundated in a given event. The full-information market value is
+\begin{equation}
+V_i = \bar V_i\,(1 - \delta h_i),
+\end{equation}
+where $\bar V_i$ is the value of an otherwise identical dry parcel and $\delta$ is the full-information flood discount. A valuer of type $k$ records
+\begin{equation}
+A_i^k = \bar V_i\,(1 - \lambda_k \delta h_i), \qquad k \in \{T, B\},
+\label{eq:valuer}
+\end{equation}
+where $\lambda_k \in [0,1]$ is the share of the discount the valuer captures. $k = T$ is the Treasury Department's official value and $k = B$ a bank's collateral value. Question~1 estimates $\lambda_T \delta$: the response of official values to flood hazard and to realised floods. $\lambda_B$ is observable only with loan-level appraisal data. Equation~\eqref{eq:valuer} has no term for realised damage. A valuation round that follows a flood can respond to the damage itself, to administrative relief of the tax base, and to newly recognised hazard; Section~\ref{sec:design} states which of these its estimate combines and how the timing of the round's survey separates them.
+
+For a loan with exposure $E_i$ secured on parcel $i$, the reported loan-to-value ratio is $\mathrm{LTV}^{\mathrm{rep}}_i = E_i / A_i^B$ and the true ratio is $\mathrm{LTV}^{\mathrm{true}}_i = E_i / V_i$. Whenever $\lambda_B < 1$ and $h_i > 0$, $\mathrm{LTV}^{\mathrm{rep}}_i < \mathrm{LTV}^{\mathrm{true}}_i$: the bank's books understate leverage on flood-exposed collateral. The understatement is largest where hazard is highest and where the valuer is least responsive.
+
+\subsection{Default, relief and loss given default}
+
+Borrower default probability depends on the realised flood intensity $s_i$ at the collateral, on hazard, on true leverage and on covariates:
+\begin{equation}
+\mathrm{PD}_i = F(\alpha + \beta_s s_i + \beta_h h_i + \gamma\,\mathrm{LTV}^{\mathrm{true}}_i + x_i'\theta).
+\end{equation}
+Relief censors what is observed. If a share $R_t$ of eligible borrowers' default is suppressed during the relief window and $e_i$ is an eligibility indicator (pre-flood performing status in a declared zone), observed default is
+\begin{equation}
+D^{\mathrm{obs}}_{it} = D_{it}\,(1 - R_t e_i),
+\end{equation}
+so the measured flood effect on default among eligible borrowers is a lower bound on $\beta_s$, and the gap between eligible and ineligible borrowers in flooded areas measures the censoring. The same relief rules move distress into restructuring flags and, under IFRS~9, into stage~2 (a significant increase in credit risk without impairment), which are not censored in the same way.
+
+Loss given default follows the supervisory template. With a recovery haircut $c$ and a post-flood collateral value $V^{\mathrm{post}}_i = V_i (1 - \phi s_i)$, where $\phi$ is the damage share,
+\begin{equation}
+\mathrm{LGD}_i = \max\{0,\; 1 - (1 - c)\,V^{\mathrm{post}}_i / E_i\}.
+\label{eq:lgd}
+\end{equation}
+Equation~\eqref{eq:lgd} is kinked: loss given default is zero while collateral cover exceeds $1/(1-c)$ and rises linearly afterwards. The kink is what makes $\lambda_B$ matter. A bank whose valuations ignore hazard ($\lambda_B = 0$) believes it is further from the kink than it is; the flood pushes more loans across the kink than its models predict.
+
+\subsection{Capital and the breaking point}
+
+Aggregate exposures into regions $r$ with portfolio weights $w_r$, flood exposure $x_r$ (the exposure-weighted share of collateral flooded in a reference event), hazard $h_r$ and book leverage $\mathrm{LTV}_r$. A scenario of severity $S$ scales the reference footprint, $I_r(S) = \min\{1, S x_r\}$, so that $S = 1$ reproduces the reference event. Expected loss is $L(S) = E \sum_r w_r\,\mathrm{PD}_r(S)\,\mathrm{LGD}_r(S)$, the common equity ratio is
+\begin{equation}
+\mathrm{CET1}(S) = \frac{K_0 - L(S)}{\mathrm{RWA}},
+\end{equation}
+and the breaking point is
+\begin{equation}
+S^* = \inf\{S : \mathrm{CET1}(S) < \kappa\},
+\label{eq:sstar}
+\end{equation}
+with $\kappa = 7\%$ for an ordinary bank and $8\%$ for a domestic systemically important bank. $S^*$ is found by bisection after checking that $\mathrm{CET1}(S)$ is monotone, which it is whenever $\mathrm{PD}_r$ and $\mathrm{LGD}_r$ are non-decreasing in $S$. Risk-weighted assets are held fixed in the baseline so that $S^*$ isolates the loss channel; letting them rise with flood exposure lowers $S^*$ further.
+
+\subsection{Predictions}
+
+The framework yields six predictions. P1--P2 concern Question~1, P3--P4 Question~2 and P5--P6 Question~3.
+\begin{description}[style=nextline,leftmargin=1.6em]
+\item[P1] $\lambda_T \in (0, 1)$: official values respond to flood hazard, but less than fully.
+\item[P2] The response to a realised flood is partial and lagged: it appears in the first round after the flood, and the within-round revision trigger (a 15\% divergence) is rarely hit by a flood alone.
+\item[P3] $\beta_s > 0$, and under relief the flood effect appears in restructuring and stage~2 before, or instead of, 90-day default; the eligible--ineligible gap in default measures the censoring.
+\item[P4] $\partial\,\mathrm{LGD}/\partial h > 0$, and the effect is larger the lower is $\lambda_B$, because low $\lambda_B$ places more loans near the kink.
+\item[P5] $\partial S^*/\partial\,\mathrm{concentration} < 0$ and $\partial S^*/\partial (1 - \lambda_B) < 0$: geographic concentration and unpriced hazard both bring the breaking point closer.
+\item[P6] Relief raises the measured short-run $S^*$ by censoring default inside the window, but not the lifetime $S^*$; the gap between the two is the policy's intertemporal transfer.
+\end{description}
+
+The paper tests none of P3--P4 with loan-level data yet; Section~\ref{sec:credit} shows that the estimator recovers them on a synthetic panel in which they hold by construction, and Section~\ref{sec:stress} illustrates the $\lambda_B$ part of P5 under an illustrative calibration, leaving the concentration part unexamined.

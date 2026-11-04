@@ -1,0 +1,277 @@
+# Schema: monthly loan-level panel with collateral (Tier 2, restricted)
+# Working draft 2026-11-02 (Phase 5). Prepared for, never touched: no real data are held.
+# Matching synthetic file: 03_data/synthetic/loan_panel_synth.csv.gz (04_analysis/src/synth_tier2.py).
+# Variable list: 05_design/data_access_plan.md, "Tier 2". Used by RQ2 Plan A and RQ3 validation.
+
+dataset: loan_panel
+version: "0.1-draft"
+grain: one row per loan per month-end reporting month
+primary_key: [loan_id, month]
+period_needed: "2009-01 to 2013-12 (2011 event); 2023-01 onwards (2024 event)"
+pdpa:
+  approach: >
+    The data controller (partner bank) pseudonymises and coarsens before transfer.
+    Location is a cadastral map sheet (a 2 km, 1 km or 500 m cell), never an address,
+    parcel number or title-deed number. The pseudonym key stays with the controller.
+  values:
+    pseudonymised: direct identifier replaced by a controller-held random key
+    coarsened: personal or quasi-identifying, reduced in precision before transfer
+    not_personal: not personal data on its own (still part of a pseudonymised record)
+  excluded_fields: >
+    names, national ID numbers, addresses, phone numbers, dates of birth,
+    parcel numbers (เลขที่ดิน), title-deed numbers, exact coordinates, free-text notes.
+sources:
+  controller: supplied by the data controller
+  derived: built by the researcher from controller fields and public boundaries
+  tier1_join: joined by the researcher from public Tier 1 layers at sheet level
+
+fields:
+  - name: loan_id
+    type: string
+    unit: null
+    allowed: "L followed by 6 digits (random pseudonym)"
+    description: Loan identifier, pseudonymised by the controller.
+    source: controller
+    pdpa: pseudonymised
+
+  - name: month
+    type: string
+    unit: YYYY-MM
+    allowed: "2009-01 .. present"
+    description: Month-end reporting month.
+    source: controller
+    pdpa: not_personal
+
+  - name: product
+    type: category
+    unit: null
+    allowed: [mortgage, sme_secured, other_secured]
+    description: Product type of the loan.
+    source: controller
+    pdpa: not_personal
+
+  - name: origination_month
+    type: string
+    unit: YYYY-MM
+    allowed: "any month up to `month`"
+    description: Origination date, coarsened to month.
+    source: controller
+    pdpa: coarsened
+
+  - name: term_months
+    type: integer
+    unit: months
+    allowed: "1 .. 480"
+    description: Contractual term at origination.
+    source: controller
+    pdpa: not_personal
+
+  - name: balance_thb
+    type: float
+    unit: THB
+    allowed: ">= 0, rounded to THB 1,000"
+    description: Outstanding balance at month end (exposure at default when the loan defaults).
+    source: controller
+    pdpa: coarsened
+
+  - name: dpd
+    type: integer
+    unit: days
+    allowed: ">= 0"
+    description: Days past due at month end. 90-dpd default is dpd > 90. Loans under a payment holiday report 0.
+    source: controller
+    pdpa: not_personal
+
+  - name: asset_class
+    type: category
+    unit: null
+    allowed: [normal, special_mention, substandard, doubtful, doubtful_of_loss]
+    description: >
+      BOT loan classification as reported. Relief eligibility under circular ว. 1564/2554 is
+      asset_class in {normal, special_mention} in the month before the event (2011-09).
+    source: controller
+    pdpa: not_personal
+
+  - name: restructured
+    type: integer
+    unit: flag
+    allowed: [0, 1]
+    description: >
+      1 if the loan's terms were modified in or before this month (bank-internal flag).
+      Needed because ว. 1564/2554 Q&A item 4 excludes assisted debtors from the GDR/TDR data sets.
+    source: controller
+    pdpa: not_personal
+
+  - name: restructure_type
+    type: category
+    unit: null
+    allowed: [none, flood_relief, gdr, tdr]
+    description: Type of modification (disaster relief, general or troubled debt restructuring).
+    source: controller
+    pdpa: not_personal
+
+  - name: stage
+    type: integer
+    unit: null
+    allowed: [1, 2, 3]
+    description: >
+      TFRS 9 stage. For months before TFRS 9 adoption (date [to verify]) the controller supplies
+      its internal significant-increase-in-credit-risk / watch-list equivalent, or the field is null.
+    source: controller
+    pdpa: not_personal
+
+  - name: ecl_thb
+    type: float
+    unit: THB
+    allowed: ">= 0, rounded to THB 1,000"
+    description: Expected credit loss (or general/specific provision before TFRS 9) at month end.
+    source: controller
+    pdpa: coarsened
+
+  - name: write_off_thb
+    type: float
+    unit: THB
+    allowed: ">= 0 or null, rounded to THB 1,000"
+    description: Amount written off; non-null only on the row of the write-off month.
+    source: controller
+    pdpa: coarsened
+
+  - name: write_off_month
+    type: string
+    unit: YYYY-MM
+    allowed: "null or a month"
+    description: Month of write-off.
+    source: controller
+    pdpa: coarsened
+
+  - name: recovery_thb
+    type: float
+    unit: THB
+    allowed: ">= 0 or null, rounded to THB 1,000"
+    description: Cumulative recovery on a defaulted loan (collateral sale and payments), net of costs.
+    source: controller
+    pdpa: coarsened
+
+  - name: recovery_month
+    type: string
+    unit: YYYY-MM
+    allowed: "null or a month"
+    description: Month the recovery was completed.
+    source: controller
+    pdpa: coarsened
+
+  - name: collateral_value_thb
+    type: float
+    unit: THB
+    allowed: "> 0, rounded to THB 10,000"
+    description: Bank's collateral value at the latest valuation (the believed value A in framework.md).
+    source: controller
+    pdpa: coarsened
+
+  - name: valuation_month
+    type: string
+    unit: YYYY-MM
+    allowed: "any month up to `month`"
+    description: Month of the latest collateral valuation.
+    source: controller
+    pdpa: coarsened
+
+  - name: valuation_method
+    type: category
+    unit: null
+    allowed: [internal, external, treasury]
+    description: Internal appraiser, external appraiser, or Treasury appraisal value.
+    source: controller
+    pdpa: not_personal
+
+  - name: utmmap1
+    type: string
+    unit: null
+    allowed: "4 digits"
+    description: DOL cadastral sheet, 1:50,000 sheet number (decoded by 04_analysis/src/mapsheet.py).
+    source: controller
+    pdpa: coarsened
+
+  - name: utmmap2
+    type: integer
+    unit: null
+    allowed: [1, 2, 3, 4]
+    description: Quadrant of the 1:50,000 sheet (I-IV).
+    source: controller
+    pdpa: coarsened
+
+  - name: utmmap3
+    type: string
+    unit: null
+    allowed: "4 digits (even km easting and northing)"
+    description: Lower-left corner of the 1:4,000 sheet.
+    source: controller
+    pdpa: coarsened
+
+  - name: utmmap4
+    type: string
+    unit: null
+    allowed: "'00' at 1:4,000; '01'-'04' at 1:2,000; '01'-'16' at 1:1,000"
+    description: Sub-sheet number within the 1:4,000 sheet.
+    source: controller
+    pdpa: coarsened
+
+  - name: utmscale
+    type: integer
+    unit: map scale denominator
+    allowed: [4000, 2000, 1000]
+    description: >
+      Sheet scale (2 km, 1 km or 500 m cell). 1:500 sheets (250 m) are aggregated to their
+      1:1,000 parent by the controller before transfer; no parcel number is transferred.
+    source: controller
+    pdpa: coarsened
+
+  - name: district_code
+    type: string
+    unit: null
+    allowed: "district (amphoe) code"
+    description: District of the sheet centroid, from public administrative boundaries.
+    source: derived
+    pdpa: not_personal
+
+  - name: province_code
+    type: string
+    unit: null
+    allowed: "province code"
+    description: Province of the sheet centroid; the region unit in RQ3.
+    source: derived
+    pdpa: not_personal
+
+  - name: segment
+    type: category
+    unit: null
+    allowed: [retail, sme]
+    description: Borrower segment.
+    source: controller
+    pdpa: coarsened
+
+  - name: income_band
+    type: category
+    unit: null
+    allowed: [low, middle, high, unknown]
+    description: Coarse income band at origination (only if the design needs it).
+    source: controller
+    pdpa: coarsened
+
+  - name: flood_share
+    type: float
+    unit: share of sheet area
+    allowed: "0 .. 1"
+    description: >
+      Share of the sheet inundated in the month (2011: Global Flood Database DFO 3850,
+      non-zero in 2011-10 and 2011-11). Exposure Flood_s = max over the event months.
+    source: tier1_join
+    pdpa: not_personal
+
+  - name: hazard
+    type: float
+    unit: share of years
+    allowed: "0 .. 1"
+    description: Long-run flood hazard h_s (JRC GSW occurrence outside permanent water), sheet mean.
+    source: tier1_join
+    pdpa: not_personal

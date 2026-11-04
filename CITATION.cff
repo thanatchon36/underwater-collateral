@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it using the Zenodo DOI below."
+title: "underwater-collateral: flood risk in official land values, credit under relief and bank capital (Thailand)"
+type: software
+authors:
+  - family-names: Chongmankhong
+    given-names: Thanatchon
+version: v0.1.1
+date-released: "2026-11-04"
+doi: 10.5281/zenodo.23949061
+repository-code: https://github.com/thanatchon36/underwater-collateral
+url: https://github.com/thanatchon36/underwater-collateral
+license-url: https://github.com/thanatchon36/underwater-collateral#citation
+keywords:
+  - flood risk
+  - land values
+  - collateral
+  - bank capital
+  - debt relief
+  - stress test
+  - Thailand
+  - Sentinel-1

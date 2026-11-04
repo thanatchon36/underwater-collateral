@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="underwater-collateral logo">
+  <title>underwater-collateral</title>
+  <defs>
+    <clipPath id="disc"><circle cx="60" cy="60" r="56"/></clipPath>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="#eef4fc" stroke="#2b6cb0" stroke-width="4"/>
+  <g clip-path="url(#disc)">
+    <!-- house: the collateral -->
+    <path d="M32 58 L60 34 L88 58" fill="none" stroke="#1a365d" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect x="39" y="56" width="42" height="34" fill="#ffffff" stroke="#1a365d" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="54" y="70" width="12" height="20" fill="#1a365d"/>
+    <!-- flood water over the lower half -->
+    <path d="M0 74 Q15 66 30 74 T60 74 T90 74 T120 74 V120 H0 Z" fill="#2b6cb0" fill-opacity="0.82"/>
+    <path d="M0 88 Q15 80 30 88 T60 88 T90 88 T120 88" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-opacity="0.85"/>
+    <path d="M0 101 Q15 93 30 101 T60 101 T90 101 T120 101" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-opacity="0.6"/>
+  </g>
+</svg>

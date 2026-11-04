@@ -1,0 +1,14 @@
+<!-- RQ1 sensitivity samples (one setting changed from the primary each); the primary variant reproduces rq1_2024_sample_sheets.csv.gz. Sources: Sentinel-1 radar maps; UNOSAT; Treasury Department; author's calculations. -->
+
+| variant   |   thresh |   min_treated |   buffer | cap   | provinces                                                     |   treated |   treated_also_primary |   controls |   treated_clusters |
+|:----------|---------:|--------------:|---------:|:------|:--------------------------------------------------------------|----------:|-----------------------:|-----------:|-------------------:|
+| primary   |     0.25 |            25 |        5 | True  | chiang-rai+nakhon-phanom+nong-khai+phayao                     |       198 |                    198 |       1891 |                 21 |
+| thr10     |     0.1  |            25 |        5 | True  | chiang-rai+nakhon-phanom+nong-khai+phayao                     |       399 |                    156 |       2458 |                 26 |
+| thr50     |     0.5  |            25 |        5 | True  | chiang-rai+nakhon-phanom+nong-khai+phayao                     |        56 |                     41 |       1827 |                 12 |
+| prov20    |     0.25 |            20 |        5 | True  | chiang-rai+nakhon-phanom+nakhon-si-thammarat+nong-khai+phayao |       221 |                    198 |       3910 |                 24 |
+| prov30    |     0.25 |            30 |        5 | True  | chiang-rai+nong-khai                                          |       148 |                    148 |        602 |                 14 |
+| buf2      |     0.25 |            25 |        2 | True  | chiang-rai+nakhon-phanom+nong-khai+phayao                     |       198 |                    198 |       2394 |                 21 |
+| buf10     |     0.25 |            25 |       10 | True  | chiang-rai+nakhon-phanom+nong-khai+phayao                     |       198 |                    198 |       1516 |                 21 |
+| nocap     |     0.25 |            25 |        5 | False | chiang-rai+nakhon-phanom+nong-khai+phayao                     |       198 |                    198 |       8591 |                 21 |
+| ref2123   |     0.25 |            25 |        5 | True  | chiang-rai+nakhon-phanom+nong-khai+phayao                     |       162 |                    160 |       1888 |                 18 |
+| nocrop    |     0.25 |            25 |        5 | True  | chiang-rai+nakhon-phanom+nong-khai+phayao                     |        32 |                     28 |       1891 |                 10 |
