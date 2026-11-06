@@ -1,21 +1,31 @@
-<p align="center"><img src="docs/assets/logo.svg" alt="underwater-collateral logo" width="120"></p>
+<p align="center">
+  <a href="https://thanatchon36.github.io/underwater-collateral/paper/#fig:maps">
+    <img src="docs/assets/hero_flood_value.png" width="100%" alt="Two maps of the Chao Phraya basin, Thailand, side by side. Left: the share of each cadastral sheet flooded in 2011, concentrated along the river from Phitsanulok to Ayutthaya. Right: official land value, highest around Bangkok and in provincial towns.">
+  </a>
+</p>
+
+<p align="center"><sub><b>Figure 2 of the <a href="https://thanatchon36.github.io/underwater-collateral/paper/#fig:maps">working paper</a>, restyled.</b> Each cell is one cadastral sheet (2 km rural, 500 m urban). The 2011 flood share is from MODIS at 250 m, which under-detects flooding in built-up areas. Descriptive only.</sub></p>
 
 <h1 align="center">underwater-collateral</h1>
 
-![Status](https://img.shields.io/badge/status-working%20draft-orange)
-![Python](https://img.shields.io/badge/python-3.12-blue)
-![Data](https://img.shields.io/badge/data-public%20only-green)
-![Pre-registration](https://img.shields.io/badge/RQ1%20pre--registration-OSF%2C%20pending-lightgrey)
-![License](https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23949061.svg)](https://doi.org/10.5281/zenodo.23949061)
-[![Data](https://img.shields.io/badge/data-Hugging%20Face-yellow)](https://huggingface.co/datasets/thanatchon36/underwater-collateral-data)
+<p align="center">
+  <img src="https://img.shields.io/badge/status-working%20draft-orange" alt="Status: working draft">
+  <img src="https://img.shields.io/badge/python-3.12-blue" alt="Python 3.12">
+  <img src="https://img.shields.io/badge/data-public%20only-green" alt="Data: public only">
+  <img src="https://img.shields.io/badge/RQ1%20pre--registration-OSF%2C%20pending-lightgrey" alt="RQ1 pre-registration: OSF, pending">
+  <img src="https://img.shields.io/badge/license-all%20rights%20reserved-lightgrey" alt="License: all rights reserved">
+  <a href="https://doi.org/10.5281/zenodo.23949061"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.23949061.svg" alt="DOI"></a>
+  <a href="https://huggingface.co/datasets/thanatchon36/underwater-collateral-data"><img src="https://img.shields.io/badge/data-Hugging%20Face-yellow" alt="Data on Hugging Face"></a>
+</p>
 
-📖 **[Read the paper on the web](https://thanatchon36.github.io/underwater-collateral/paper/)** ·
-📕 **[Working paper (PDF)](paper/paper.pdf)** ·
-📄 **[Read the proposal](06_proposal/proposal.md)** ·
-📋 **[One-page summary](06_proposal/one_pager.md)** ·
-📝 **[RQ1 pre-analysis plan](05_design/pre_analysis_plan_rq1_draft.md)** ·
-🔬 **[Pilot report](04_analysis/pilot_report.md)**
+<p align="center">
+  📖 <a href="https://thanatchon36.github.io/underwater-collateral/paper/"><b>Read the paper on the web</b></a> ·
+  📕 <a href="paper/paper.pdf"><b>Working paper (PDF)</b></a> ·
+  📄 <a href="06_proposal/proposal.md"><b>Read the proposal</b></a><br>
+  📋 <a href="06_proposal/one_pager.md"><b>One-page summary</b></a> ·
+  📝 <a href="05_design/pre_analysis_plan_rq1_draft.md"><b>RQ1 pre-analysis plan</b></a> ·
+  🔬 <a href="04_analysis/pilot_report.md"><b>Pilot report</b></a>
+</p>
 
 **Research proposal and public-data pilot on how flood risk reaches bank capital in Thailand.** Few Thai homes were
 insured when the 2011 floods struck, so regulatory debt relief, not insurance, was the main buffer for borrowers.

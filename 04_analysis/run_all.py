@@ -31,6 +31,7 @@ STEPS = [
     "hash_registration_inputs.py",     # SHA-256 of the registered RQ1 sample files
     "build_sheet_landcover.py",        # WorldCover 2021 land-cover shares by sheet
     "fig_appraisal_flood.py",          # RQ1 motivating figures and tables
+    "fig_readme_hero.py",              # README banner: the paper's Figure 2 restyled
     "panel_summary.py",                # coverage and data-quality tables
     "clean_bot_provincial_credit.py",  # BOT provincial credit panel
     "fig_provincial_credit_2011.py",   # provincial credit around 2011
